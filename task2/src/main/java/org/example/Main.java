@@ -17,8 +17,8 @@ public class Main {
         int startVertex = 2;
         List<Integer> bfsResult = graph.bfs(startVertex);
 
-        System.out.println("BFS начиная с вершины "+ startVertex + ": " + bfsResult);
+        System.out.println("BFS with start at "+ startVertex + ": " + bfsResult);
 
-        System.out.println("Соседи вершины " + startVertex + ": " + graph.getNeighbors(2));
+        System.out.println("Neighbours of vertex " + startVertex + ": " + graph.getNeighbors(2));
     }
 }

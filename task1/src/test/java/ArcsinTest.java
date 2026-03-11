@@ -31,7 +31,7 @@ public class ArcsinTest {
     @Test
     @DisplayName("check random values")
     void testRandomValues() {
-        for (int i = 0; i < 1000000; i++) { // достаточно 10_000 для лабораторной
+        for (int i = 0; i < 1000000; i++) {
             double x = ThreadLocalRandom.current().nextDouble(-0.9999, 0.9999);
             double expected = Math.asin(x);
             double actual = Arcsin.count(x, 100);
