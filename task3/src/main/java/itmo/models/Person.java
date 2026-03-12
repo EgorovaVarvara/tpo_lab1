@@ -14,8 +14,12 @@ public class Person extends Object {
     }
 
     public void takeDamage() {
-        health -= 10;
-        System.out.println("Ауч... ");
-        getHealth();
+        if (health > 10) {
+            health -= 10;
+            System.out.println("Ауч... ");
+            getHealth();
+        } else {
+            System.out.println(getName() + " уже мертв(");
+        }
     }
 }

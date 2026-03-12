@@ -18,6 +18,7 @@ public class HitCommand implements BaseCommand {
 
     @Override
     public void execute() {
+
         System.out.println("Берегись! ");
         object.takeDamage();
     }

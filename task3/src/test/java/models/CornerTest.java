@@ -1,0 +1,45 @@
+package models;
+
+import itmo.models.Corner;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class CornerTest {
+
+    @Test
+    void testCoordinatesGettersAndSetters() {
+
+        Corner corner = new Corner("угол", 10, 20);
+
+        assertEquals(10, corner.getCoordinateX());
+        assertEquals(20, corner.getCoordinateY());
+
+        corner.setCoordinateX(30);
+        corner.setCoordinateY(40);
+
+        assertEquals(30, corner.getCoordinateX());
+        assertEquals(40, corner.getCoordinateY());
+    }
+
+
+    @Test
+    void testConsoleOutput() {
+
+        Corner corner = new Corner("угол", 10, 20);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        corner.getPlace();
+        corner.getCoordinates();
+
+        String expected =
+                "угол\n" + "Координата X - 10\n" + "Координата Y - 20\n";
+
+        assertEquals(expected, outputStream.toString());
+    }
+}
