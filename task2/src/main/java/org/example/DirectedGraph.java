@@ -42,13 +42,13 @@ public class DirectedGraph {
         while (!queue.isEmpty()){
             vertex = queue.poll();
             result.add(vertex);
-
             for (int neighbour : adjacencyList.get(vertex)){
                 if (!visited.contains(neighbour)){
                     visited.add(neighbour);
                     queue.add(neighbour);
                 }
             }
+            System.out.println(result);
         }
 
         return result;

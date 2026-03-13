@@ -2,6 +2,8 @@ import org.example.DirectedGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Random;
 
@@ -116,5 +118,83 @@ public class DirectedGraphTest {
 
         assertNotNull(result);
         assertTrue(result.contains(0));
+    }
+
+    @Test
+    void testBreadCrumbsSmall(){
+        graph.addEdge(0, 1);
+        graph.addEdge(1, 0);
+        graph.addEdge(1, 2);
+        graph.addEdge(1, 5);
+        graph.addEdge(3, 1);
+        graph.addEdge(3, 5);
+        graph.addEdge(3, 7);
+        graph.addEdge(4, 2);
+        graph.addEdge(5, 1);
+        graph.addEdge(5, 6);
+        graph.addEdge(5, 7);
+        graph.addEdge(6, 7);
+        graph.addEdge(7, 5);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        List<Integer> result = graph.bfs(0);
+
+        String exceptedOuput = "[0]\n" +
+                "[0, 1]\n" +
+                "[0, 1, 2]\n" +
+                "[0, 1, 2, 5]\n" +
+                "[0, 1, 2, 5, 6]\n" +
+                "[0, 1, 2, 5, 6, 7]\n";
+
+        assertEquals(exceptedOuput, outputStream.toString());
+    }
+
+    @Test
+    void testBreadCrumbsLarge(){
+        graph.addEdge(0, 1);
+        graph.addEdge(0, 2);
+        graph.addEdge(0, 7);
+        graph.addEdge(1, 2);
+        graph.addEdge(3, 2);
+        graph.addEdge(3, 6);
+        graph.addEdge(4, 0);
+        graph.addEdge(4, 7);
+        graph.addEdge(5, 8);
+        graph.addEdge(5, 9);
+        graph.addEdge(6, 2);
+        graph.addEdge(6, 3);
+        graph.addEdge(8, 7);
+        graph.addEdge(8, 11);
+        graph.addEdge(8, 12);
+        graph.addEdge(9, 13);
+        graph.addEdge(10, 6);
+        graph.addEdge(10, 13);
+        graph.addEdge(10, 17);
+        graph.addEdge(11, 14);
+        graph.addEdge(12, 9);
+        graph.addEdge(12, 13);
+        graph.addEdge(13, 9);
+        graph.addEdge(0, 1);
+        graph.addEdge(15, 16);
+        graph.addEdge(16, 13);
+        graph.addEdge(17, 16);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        List<Integer> result = graph.bfs(10);
+
+        String exceptedOuput = "[10]\n" +
+                "[10, 6]\n" +
+                "[10, 6, 13]\n" +
+                "[10, 6, 13, 17]\n" +
+                "[10, 6, 13, 17, 2]\n" +
+                "[10, 6, 13, 17, 2, 3]\n" +
+                "[10, 6, 13, 17, 2, 3, 9]\n" +
+                "[10, 6, 13, 17, 2, 3, 9, 16]\n";
+
+        assertEquals(exceptedOuput, outputStream.toString());
     }
 }
