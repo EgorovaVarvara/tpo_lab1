@@ -16,11 +16,11 @@ class FrontPanelTest {
     void testFirstDestroyStage() {
 
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("панель", StrengthState.INTACT, metal);
+        FrontPanel panel = new FrontPanel("панель", 100, metal);
 
         panel.destroy();
 
-        assertEquals(StrengthState.BREAKING, panel.getStrengthState());
+        assertEquals(90, panel.getStrengthState());
         assertTrue(metal.getMelted());
     }
 
@@ -29,15 +29,15 @@ class FrontPanelTest {
     void testSecondDestroyStage() {
 
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("панель", StrengthState.BREAKING, metal);
+        FrontPanel panel = new FrontPanel("панель", 60, metal);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
         panel.destroy();
 
-        assertEquals(StrengthState.DESTROYED, panel.getStrengthState());
-        assertEquals("Передняя панель полностью расплавлена.\n", outputStream.toString());
+        assertEquals(50, panel.getStrengthState());
+        assertEquals("Передняя панель постепенно плавится.\n", outputStream.toString());
     }
 
 
@@ -45,7 +45,7 @@ class FrontPanelTest {
     void testAlreadyDestroyed() {
 
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("панель", StrengthState.DESTROYED, metal);
+        FrontPanel panel = new FrontPanel("панель", 0, metal);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));

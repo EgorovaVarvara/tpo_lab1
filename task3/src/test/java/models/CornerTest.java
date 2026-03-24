@@ -15,14 +15,14 @@ class CornerTest {
 
         Corner corner = new Corner("угол", 10, 20);
 
-        assertEquals(10, corner.getCoordinateX());
-        assertEquals(20, corner.getCoordinateY());
+        assertEquals(10, corner.getX());
+        assertEquals(20, corner.getY());
 
         corner.setCoordinateX(30);
-        corner.setCoordinateY(40);
+        corner.setY(40);
 
-        assertEquals(30, corner.getCoordinateX());
-        assertEquals(40, corner.getCoordinateY());
+        assertEquals(30, corner.getX());
+        assertEquals(40, corner.getY());
     }
 
 

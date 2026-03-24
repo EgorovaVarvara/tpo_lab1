@@ -17,16 +17,13 @@ class CompBankTest {
     void testFirstDestroyStep() {
 
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("Передняя панель", StrengthState.INTACT, metal);
-        CompBank bank = new CompBank("Компьютерный банк", panel, StrengthState.INTACT);
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStream));
+        FrontPanel panel = new FrontPanel("Передняя панель", 100, metal);
+        CompBank bank = new CompBank("Компьютерный банк", panel, 100);
 
         bank.destroy();
 
-        assertEquals(StrengthState.BREAKING, bank.getStrengthState());
-        assertEquals(StrengthState.BREAKING, panel.getStrengthState());
+        assertEquals(90, bank.getStrengthState());
+        assertEquals(90, panel.getStrengthState());
         assertTrue(metal.getMelted());
     }
 
@@ -35,8 +32,8 @@ class CompBankTest {
     void testSecondDestroyStep() {
 
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("Передняя панель", StrengthState.BREAKING, metal);
-        CompBank bank = new CompBank("Компьютерный банк", panel, StrengthState.BREAKING);
+        FrontPanel panel = new FrontPanel("Передняя панель", 60, metal);
+        CompBank bank = new CompBank("Компьютерный банк", panel, 60);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
@@ -44,9 +41,10 @@ class CompBankTest {
         bank.destroy();
 
         String expected =
-                "Передняя панель полностью расплавлена.\n" + "Компьютерный банк разрушен!\n";
+                "Передняя панель постепенно плавится.\n" +
+                        "Компьютерный банк постепенно разрушается!\n";
 
-        assertEquals(StrengthState.DESTROYED, bank.getStrengthState());
+        assertEquals(50, bank.getStrengthState());
         assertEquals(expected, outputStream.toString());
     }
 
@@ -55,16 +53,15 @@ class CompBankTest {
     void testAlreadyDestroyed() {
 
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("Передняя панель", StrengthState.DESTROYED, metal);
-        CompBank bank = new CompBank("Компьютерный банк", panel, StrengthState.DESTROYED);
+        FrontPanel panel = new FrontPanel("Передняя панель", 0, metal);
+        CompBank bank = new CompBank("Компьютерный банк", panel, 0);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
 
         bank.destroy();
 
-        String expected =
-                "Передняя панель уже уничтожена\n" + "Компьютерный банк уже полностью уничтожен\n";
+        String expected = "Компьютерный банк уже уничтожен\n";
 
         assertEquals(expected, outputStream.toString());
     }

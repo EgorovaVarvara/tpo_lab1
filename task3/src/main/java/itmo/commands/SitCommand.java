@@ -19,9 +19,14 @@ public class SitCommand implements BaseCommand {
 
     @Override
     public void execute() {
-        System.out.print(person.getName() + " засел в ");
-        object.getPlace();
-        object.getCoordinates();
+        if (person.getHealth() != 0) {
+            System.out.print(person.getName() + " засел в ");
+            object.getPlace();
+            object.getCoordinates();
+            person.setCoordinate(object.getCoordinateX(), object.getCoordinateY());
+        } else {
+            throw new Error("мертв");
+        }
     }
 
 }

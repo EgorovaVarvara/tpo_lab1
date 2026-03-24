@@ -10,7 +10,7 @@ class BombingTest {
     @Test
     void testInitialState() {
 
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 5);
 
         assertFalse(bombing.getStarted());
     }
@@ -18,7 +18,7 @@ class BombingTest {
     @Test
     void testSetStartedTrue() {
 
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 5);
 
         bombing.setStarted(true);
 
@@ -28,7 +28,7 @@ class BombingTest {
     @Test
     void testSetStartedFalse() {
 
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 5);
 
         bombing.setStarted(true);
         bombing.setStarted(false);

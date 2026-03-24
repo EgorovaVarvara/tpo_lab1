@@ -13,7 +13,7 @@ public class Corner extends Object implements Place {
         this.coordinateY = coordinateY;
     }
 
-    public int getCoordinateX() {
+    public int getX() {
         System.out.println("Координата X - " + coordinateX);
         return coordinateX;
     }
@@ -21,11 +21,11 @@ public class Corner extends Object implements Place {
         this.coordinateX = coordinateX;
     }
 
-    public int getCoordinateY() {
+    public int getY() {
         System.out.println("Координата Y - " + coordinateY);
         return coordinateY;
     }
-    public void setCoordinateY(int coordinateY) {
+    public void setY(int coordinateY) {
         this.coordinateY = coordinateY;
     }
 
@@ -33,7 +33,17 @@ public class Corner extends Object implements Place {
         System.out.println(getName());
     }
     public void getCoordinates() {
-        getCoordinateX();
-        getCoordinateY();
+        getX();
+        getY();
+    }
+
+    @Override
+    public int getCoordinateX() {
+        return coordinateX;
+    }
+
+    @Override
+    public int getCoordinateY() {
+        return coordinateY;
     }
 }

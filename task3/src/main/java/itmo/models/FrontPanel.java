@@ -6,32 +6,34 @@ import itmo.utils.StrengthState;
 
 public class FrontPanel extends Object implements Destroyable {
 
-    private StrengthState strengthState;
+    private int strengthState;
     private Metal material;
 
-    public FrontPanel(String name, StrengthState strengthState, Metal material) {
+    public FrontPanel(String name, int strengthState, Metal material) {
         super(name);
         this.strengthState = strengthState;
         this.material = material;
     }
 
-    public StrengthState getStrengthState() {
+    public int getStrengthState() {
         return strengthState;
     }
 
-    public void setStrengthState(StrengthState strengthState) {
+    public void setStrengthState(int strengthState) {
         this.strengthState = strengthState;
     }
 
     @Override
     public void destroy() {
-        if (strengthState == StrengthState.INTACT) {
-            strengthState = StrengthState.BREAKING;
+        if (strengthState >= 80) {
+            strengthState -= 10;
             material.setMelted();
-        } else if (strengthState == StrengthState.BREAKING) {
-            strengthState = StrengthState.DESTROYED;
-            System.out.println("Передняя панель полностью расплавлена.");
-        } else {
+        } else if (strengthState > 10 && strengthState < 80) {
+            strengthState -= 10;
+            System.out.println("Передняя панель постепенно плавится.");
+        } else if (strengthState == 10) {
+            System.out.println("Передняя панель уничтожена");
+        } else if (strengthState <= 0) {
             System.out.println("Передняя панель уже уничтожена");
         }
     }

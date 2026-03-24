@@ -5,7 +5,6 @@ import itmo.models.Alloy;
 import itmo.models.Bombing;
 import itmo.models.CompBank;
 import itmo.models.FrontPanel;
-import itmo.utils.StrengthState;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -15,10 +14,10 @@ class DestroyCommandTest {
 
     @Test
     void testDestroyCommandExecution() {
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 5);
         Alloy metal = new Alloy();
-        FrontPanel panel = new FrontPanel("Передняя панель", StrengthState.INTACT, metal);
-        CompBank comp = new CompBank("Компьютерный банк", panel, StrengthState.INTACT);
+        FrontPanel panel = new FrontPanel("Передняя панель", 100, metal);
+        CompBank comp = new CompBank("Компьютерный банк", panel, 100);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));

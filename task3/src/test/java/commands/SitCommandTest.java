@@ -25,8 +25,11 @@ class SitCommandTest {
 
         command.execute();
 
+
+
         String expectedOutput =
-                "Емеля засел в угол\n" + "Координата X - 10\n" + "Координата Y - 20\n";
+                "Здоровье Емеля - 100\n" + "Емеля засел в угол\n" + "Координата X - 10\n" + "Координата Y - 20\n";
+
 
         assertEquals(expectedOutput, outputStream.toString());
     }
@@ -57,5 +60,18 @@ class SitCommandTest {
         );
 
         assertEquals("Где-то же он сидит... не null", exception.getMessage());
+    }
+
+    @Test
+    void testDeadPerson() {
+
+        Person person = new Person("Емеля");
+        person.setHealth(0);
+
+        Corner corner = new Corner("угол", 10, 20);
+
+        SitCommand command = new SitCommand(person, corner);
+
+        assertThrows(Error.class, command::execute);
     }
 }

@@ -18,9 +18,12 @@ public class HitCommand implements BaseCommand {
 
     @Override
     public void execute() {
-
-        System.out.println("Берегись! ");
-        object.takeDamage();
+        if (object.getHealth() != 0) {
+            System.out.println("Берегись! ");
+            object.takeDamage();
+        } else {
+            throw new Error("мертв");
+        }
     }
 
 }

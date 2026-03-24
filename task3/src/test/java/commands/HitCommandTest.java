@@ -16,7 +16,7 @@ class HitCommandTest {
     void testFullHpHit() {
 
         Person person = new Person("Емеля");
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 3);
 
         HitCommand hitCommand = new HitCommand(bombing, person);
 
@@ -30,11 +30,9 @@ class HitCommandTest {
     void testHitFrom70Health() {
 
         Person person = new Person("Емеля");
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 3);
 
-        for (int i = 0; i < 3; i++) {
-            person.takeDamage();
-        }
+        person.setHealth(70);
 
         assertEquals(70, person.getHealth());
 
@@ -45,10 +43,26 @@ class HitCommandTest {
     }
 
     @Test
+    void testDead() {
+
+        Person person = new Person("Емеля");
+        Bombing bombing = new Bombing("Бомбардировка", 3);
+
+        person.setHealth(0);
+
+        assertEquals(0, person.getHealth());
+
+        HitCommand hitCommand = new HitCommand(bombing, person);
+
+        assertEquals(0, person.getHealth());
+        assertThrows(Error.class, hitCommand::execute);
+    }
+
+    @Test
     void testConsoleOutput() {
 
         Person person = new Person("Емеля");
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 3);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
@@ -57,7 +71,7 @@ class HitCommandTest {
         hitCommand.execute();
 
         String expectedOutput =
-                "Берегись! \n" + "Ауч... \n" + "Здоровье Емеля - 90\n";
+                "Здоровье Емеля - 100\n" + "Берегись! \n" + "Ауч... \n" + "Здоровье Емеля - 90\n";
 
         assertEquals(expectedOutput, outputStream.toString());
     }
@@ -79,11 +93,9 @@ class HitCommandTest {
     void testDeadPerson() {
 
         Person person = new Person("Емеля");
-        Bombing bombing = new Bombing("Бомбардировка");
+        Bombing bombing = new Bombing("Бомбардировка", 3);
 
-        for (int i = 0; i < 10; i++) {
-            person.takeDamage();
-        }
+        person.setHealth(10);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
@@ -92,7 +104,7 @@ class HitCommandTest {
         hitCommand.execute();
 
         String expectedOutput =
-                "Берегись! \n" + "Емеля уже мертв(\n";
+                "Здоровье Емеля - 10\n" + "Берегись! \n" + "Емеля уже мертв(\n";
 
         assertEquals(expectedOutput, outputStream.toString());
     }

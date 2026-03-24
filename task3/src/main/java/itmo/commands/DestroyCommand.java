@@ -18,6 +18,7 @@ public class DestroyCommand implements BaseCommand {
     public void execute() {
         System.out.println(bombing.getName() + " разрушительна. ");
         object.destroy();
+        bombing.setBombimgLevel(bombing.getBombimgLevel() + 20);
     }
 
 }
